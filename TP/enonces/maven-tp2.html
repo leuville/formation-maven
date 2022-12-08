@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Jour 2</title>
+    <meta name="description" content="Exercice 5">
+
+    <link rel="stylesheet" href=".//css/main.css">
+    <link rel="canonical" href=".//maven-tp2.html">
+    <link rel="alternate" type="application/rss+xml" title="Leuville Objects / TP Maven" href=".//feed.xml" />
+</head>
+<body>
+
+<header class="masthead">
+  <div class="container">
+    <a href=".//" class="masthead-logo">
+      <span class="mega-octicon octicon-package"></span>
+      Leuville Objects
+    </a>
+
+  </div>
+</header>
+
+
+<div class="container">
+
+<div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Jour 2</h1>
+    <hr>
+  </header>
+
+  <article class="post-content">
+    <h1 id="exercice-5">Exercice 5</h1>
+
+<p>Le but de cet exercice est de créer un projet de type « Reactor » pour compiler les 3 projets développés précédemment. Pour cela, créer un nouveau projet Maven avec les informations suivantes :</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>groupId</strong> :</td>
+      <td>org.formation.mabiblio</td>
+    </tr>
+    <tr>
+      <td><strong>artifactId</strong> :</td>
+      <td>mabiblio-parent</td>
+    </tr>
+    <tr>
+      <td><strong>version</strong> :</td>
+      <td>1.0.0-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td><strong>packaging</strong> :</td>
+      <td>pom</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Ajouter dans le <code class="highlighter-rouge">pom.xml</code> de ce nouveau projet :</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependencyManagement&gt;</span>
+  <span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>log4j<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>log4j<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>1.2.14<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;/dependencies&gt;</span>
+<span class="nt">&lt;/dependencyManagement&gt;</span>
+</code></pre>
+</div>
+
+<p>Ajouter dans le <code class="highlighter-rouge">pom.xml</code> du projet <code class="highlighter-rouge">mabiblio-persist</code> :</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;parent&gt;</span>
+<span class="nt">&lt;groupId&gt;</span>org.formation.mabiblio<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>mabiblio-parent<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.0.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;relativePath&gt;</span>../mabiblio-parent<span class="nt">&lt;/relativePath&gt;</span> 
+<span class="nt">&lt;/parent&gt;</span>
+</code></pre>
+</div>
+
+<p>Il est alors possible d’ajouter la dépendance <em>log4j</em> configurée dans le projet <code class="highlighter-rouge">mabiblio-parent</code> sans avoir à indiquer le numéro de version:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>log4j<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>log4j<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre>
+</div>
+
+<p>Modifier la méthode <code class="highlighter-rouge">findAll</code> de la classe <code class="highlighter-rouge">GenericDAOImpl</code> afin d’utiliser la bibliothèque <em>log4j</em>.</p>
+
+<p>Pour cela mettre un log de niveau <em>DEBUG</em> et un log de niveau <em>INFO</em> dans cette méthode.</p>
+
+<p>Copier le fichier <code class="highlighter-rouge">log4j.properties</code> (disponble <a href=".//assets/log4j.properties">ici</a>) dans le répertoire <code class="highlighter-rouge">src/test/resources</code>.</p>
+
+<p>Exécuter la classe <code class="highlighter-rouge">LivreDAOTest</code> créée dans l’Exercice 2. Les lignes de log doivent apparaître dans la console d’Eclipse.</p>
+
+<p>Ajouter dans le <code class="highlighter-rouge">pom.xml</code> du projet <code class="highlighter-rouge">mabiblio-parent</code>, les projets <code class="highlighter-rouge">mabiblio-business</code>, <code class="highlighter-rouge">mabiblio-persist</code> et <code class="highlighter-rouge">mabiblio-console</code> en tant que module.</p>
+
+<p>Il est possible d’utiliser l’interface proposée par le plugin Maven dans Eclipse :</p>
+
+<p><img src=".//assets/add_modules.png" alt="console" /></p>
+
+<p>Lancer la commande <code class="highlighter-rouge">mvn install</code> sur le projet <code class="highlighter-rouge">mabiblio-parent</code>.</p>
+
+<h1 id="exercice-6">Exercice 6</h1>
+
+<p>Le but de cet exercice est de créer un projet de packaging « war ».</p>
+
+<p>Créer un nouveau projet Maven avec les informations suivantes :</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>groupId</strong> :</td>
+      <td>org.formation.mabiblio</td>
+    </tr>
+    <tr>
+      <td><strong>artifactId</strong> :</td>
+      <td>mabiblio-webapp</td>
+    </tr>
+    <tr>
+      <td><strong>version</strong> :</td>
+      <td>1.0.0-SNAPSHOT</td>
+    </tr>
+    <tr>
+      <td><strong>packaging</strong> :</td>
+      <td>war</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src=".//assets/create_project_war.png" alt="console" /></p>
+
+<p>Copier les fichiers contenus dans l’archive MaBiblioWeb.zip (disponible <a href=".//assets/MaBiblioWeb.zip">ici</a>) dans le projet.</p>
+
+<p>Configurer le <code class="highlighter-rouge">pom.xml</code> pour ajouter une dépendance vers le projet <code class="highlighter-rouge">mabiblio-business</code> et la dépendance suivante pour utiliser les servlets :</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>javax.servlet<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>servlet-api<span class="nt">&lt;/artifactId&gt;</span>                
+  <span class="nt">&lt;version&gt;</span>2.5<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre>
+</div>
+
+<p>Ajouter la dépendance suivante pour utiliser les tags affichant les tableaux :</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>displaytag<span class="nt">&lt;/groupId&gt;</span>                 
+  <span class="nt">&lt;artifactId&gt;</span>displaytag<span class="nt">&lt;/artifactId&gt;</span>               
+  <span class="nt">&lt;version&gt;</span>1.2<span class="nt">&lt;/version&gt;</span>      
+  <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre>
+</div>
+
+<p>Copier le fichier <code class="highlighter-rouge">persistence.xml</code> se trouvant dans le répertoire <code class="highlighter-rouge">src/test/resources</code> du projet <code class="highlighter-rouge">mabiblio-persist</code> dans le répertoire <code class="highlighter-rouge">src/main/resources</code> du projet <code class="highlighter-rouge">mabiblio-webapp</code>.</p>
+
+<p>Exécuter le projet <code class="highlighter-rouge">mabiblio-webapp</code>  dans un container <em>Tomcat</em> et aller dans un navigateur web à l’URL <a href="http://localhost:8080/mabilio-webapp/">http://localhost:8080/mabilio-webapp/</a>.</p>
+
+<p>Un message d’erreur apparaît dans le navigateur :</p>
+
+<p><img src=".//assets/error_project_war.png" alt="console" /></p>
+
+<p>Pour corriger cette erreur, il est nécessaire de modifier la classe <code class="highlighter-rouge">org.formation.mabiblio.business.dto.Livre</code> du projet <code class="highlighter-rouge">mabiblio-business</code> en ajoutant une méthode ayant la signature suivante :</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getAuteursFormates</span><span class="p">(</span><span class="o">)</span>
+</code></pre>
+</div>
+
+<p>Cette méthode retourne une chaîne de caractères contenant la liste des auteurs d’un livre dans le format suivant : « [prenom1] [nom1], [prenom2] [nom2] »</p>
+
+<p>Afficher à nouveau la page, celle-ci soit afficher la liste des livres.</p>
+
+<h1 id="exercice-7">Exercice 7</h1>
+
+<p>Le but de cet exercice est de réaliser des tests unitaires.</p>
+
+<p>Créer une classe <code class="highlighter-rouge">org.formation.mabiblio.business.dto.LivreTest</code> dans le répertoire <code class="highlighter-rouge">src/test/java</code> du projet <code class="highlighter-rouge">mabiblio-business</code>.</p>
+
+<p>Ajouter la dépendance suivante pour utiliser les annotations et les classes fournies par le framework <em>JUnit</em> :</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>junit<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>junit<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre>
+</div>
+
+<p>Faire en sorte que la version (<em>4.11</em>) et le scope (<em>test</em>) soit indiqué dans le <code class="highlighter-rouge">pom.xml</code> du projet <code class="highlighter-rouge">mabiblio-parent</code>.</p>
+
+<h1 id="exercice-8">Exercice 8</h1>
+
+<p>Le but de cet exercice est de manipuler les propriétés, les filtres et les profils avec Maven.</p>
+
+<p>Ajouter une propriété <code class="highlighter-rouge">log4j.version</code> dans le <code class="highlighter-rouge">pom.xml</code> du projet <code class="highlighter-rouge">mabiblio-parent</code> et utiliser cette propriété pour définir la version de la dépendance <em>log4j</em>.</p>
+
+<p>Ajouter une propriété <code class="highlighter-rouge">logger.level</code> (avec comme valeur <em>DEBUG</em>) dans le fichier <code class="highlighter-rouge">pom.xml</code> du projet <code class="highlighter-rouge">mabiblio-console</code> pour définir le niveau de log de l’application.</p>
+
+<p>Faire en sorte de pouvoir utiliser cette propriété dans un fichier <code class="highlighter-rouge">log4j.properties</code> qui se situe dans le répertoire <code class="highlighter-rouge">src/main/resources</code> du projet <code class="highlighter-rouge">mabiblio-console</code>.</p>
+
+<p>Supprimer la propriété <code class="highlighter-rouge">logger.level</code> du <code class="highlighter-rouge">pom.xml</code> et faire en sorte que la valeur de cette propriété soit indiquée dans un fichier <code class="highlighter-rouge">src/main/filters/dev.properties</code>.</p>
+
+<p>Créer deux profils dans le projet <code class="highlighter-rouge">mabiblio-console</code> : <em>DEV</em> et <em>PROD</em>.</p>
+
+<p>Faire en sorte que le profil <em>DEV</em> filtre les ressources avec le fichier <code class="highlighter-rouge">src/main/filters/dev.properties</code> et le profil <em>PROD</em> filtre les ressources avec le fichier <code class="highlighter-rouge">src/main/filters/prod.properties</code>.</p>
+
+<p>La valeur de la propriété <code class="highlighter-rouge">logger.level</code> dans le fichier <code class="highlighter-rouge">prod.properties</code> doit être <em>INFO</em>.</p>
+
+<h1 id="exercice-9">Exercice 9</h1>
+
+<p>Le but de cet exercice est d’utiliser le plugin <em>maven-assembly-plugin</em>.</p>
+
+<p>Dans le <code class="highlighter-rouge">pom.xml</code> du projet <code class="highlighter-rouge">mabiblio-console</code>, utiliser le plugin <em>maven-assembly-plugin</em> pour définir un packaging pour créer une archive <code class="highlighter-rouge">console.zip</code> ayant la structure suivante :</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>console.zip
+    |
+    |---/lib
+    |     |--- *.jar
+    |
+    |---/bin
+    |     |--- console.bat
+    |
+    |---/conf
+    |     |--- log4j.properties
+</code></pre>
+</div>
+
+<p>Le contenu du fichier <code class="highlighter-rouge">console.bat</code> doit être généré en fonction des dépendances du projet.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nb">set </span><span class="nv">CLASSPATH</span><span class="o">=</span>..<span class="se">\\</span>lib<span class="se">\\</span><span class="k">${</span><span class="nv">project</span><span class="p">.build.finalName</span><span class="k">}</span>.<span class="k">${</span><span class="nv">packaging</span><span class="k">}</span>;<span class="k">${</span><span class="nv">classpath</span><span class="k">}</span>
+
+java -cp %CLASSPATH% org.formation.mabiblio.console.MaBiblioConsole
+</code></pre>
+</div>
+
+<p>Pour générer la propriété <code class="highlighter-rouge">classpath</code>, utiliser le plugin <em>maven-dependency-plugin</em> et son goal <em>build-classpath</em>. Pour cela, configurer le <code class="highlighter-rouge">pom.xml</code> pour exécuter ce goal à la phase <code class="highlighter-rouge">generate-resources</code> afin de créer la propriété <code class="highlighter-rouge">classpath</code> qui sera utilisé lors du filtrage des ressources.</p>
+
+<p>Le fichier <code class="highlighter-rouge">distrib.xml</code> (dont un fichier vierge est disponible <a href=".//assets/distrib.xml">ici</a>) décrivant ce packaging doit se trouver dans le répertoire <code class="highlighter-rouge">src/main/assembly</code>.</p>
+
+
+  </article>
+
+</div>
+
+
+<footer class="site-footer">
+  <h2 class="footer-heading">Leuville Objects</h2>
+  <div class="footer-col-wrapper">
+    <div class="footer-col footer-col-1">
+      <ul class="contact-list">
+        <li>Copyright Leuville Objects.</li>
+        <li>
+          <a href="mailto:formation@leuville.com">formation@leuville.com</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</div>
+
+</body>
+</html>
